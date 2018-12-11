@@ -71,4 +71,4 @@ const widgetsReducerTypes = PropTypes => ({
   ).isRequired
 });
 
-export default createReducer(initialState, widgetsReducer, widgetsReducerTypes);
+export default createReducer('widgets', initialState, widgetsReducer, widgetsReducerTypes);

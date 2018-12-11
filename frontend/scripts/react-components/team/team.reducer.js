@@ -51,4 +51,4 @@ const teamReducerTypes = PropTypes => ({
   errorMessage: PropTypes.string
 });
 
-export default createReducer(initialState, teamReducer, teamReducerTypes);
+export default createReducer('team', initialState, teamReducer, teamReducerTypes);

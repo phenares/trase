@@ -18,6 +18,8 @@ import TopNav from 'react-components/nav/top-nav/top-nav.container';
 import ProfileNode from 'react-components/profile-node/profile-node.container';
 import Footer from 'scripts/react-components/shared/footer/footer.component';
 
+import reducer from 'react-components/widgets/widgets.reducer'; // eslint-disable-line
+
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({
     feedback: FeedbackMarkup()

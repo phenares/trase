@@ -13,7 +13,7 @@ export default function(state) {
       return 'TRASE - Profiles';
     case 'tool':
       if (!state.app.selectedContext) {
-        if (state.tool.isMapVisible) {
+        if (state.location.query && JSON.parse(state.location.query.isMapVisible)) {
           return 'TRASE - Map';
         }
         return 'TRASE - Supply Chain';

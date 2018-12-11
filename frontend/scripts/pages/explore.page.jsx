@@ -11,6 +11,8 @@ import Explore from 'react-components/explore/explore.container';
 import 'styles/layouts/l-explore.scss';
 import 'styles/components/shared/dropdown.scss';
 
+import reducer from 'react-components/explore/explore.reducer'; // eslint-disable-line
+
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({
     feedback: FeedbackMarkup()

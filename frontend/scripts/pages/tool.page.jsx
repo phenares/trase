@@ -35,6 +35,8 @@ import {
 } from 'react-components/tool/tool.thunks';
 import MapDimensionsContainer from 'containers/tool/map-dimensions.container';
 
+import reducer from 'react-components/tool/tool.reducer'; // eslint-disable-line
+
 import EventManager from 'utils/eventManager';
 
 const evManager = new EventManager();

@@ -11,6 +11,8 @@ import LogisticsMap from 'react-components/logistics-map/logistics-map.container
 import 'styles/layouts/l-logistics-map.scss';
 import 'styles/components/shared/dropdown.scss';
 
+import reducer from 'react-components/logistics-map/logistics-map.reducer'; // eslint-disable-line
+
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({
     feedback: FeedbackMarkup()

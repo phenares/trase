@@ -10,6 +10,8 @@ import TopNav from 'react-components/nav/top-nav/top-nav.container';
 import Footer from 'react-components/shared/footer/footer.component';
 
 import 'styles/layouts/l-dashboard-element.scss';
+import reducer from 'react-components/dashboard-element/dashboard-element.reducer'; // eslint-disable-line
+import widgetsReducer from 'react-components/widgets/widgets.reducer'; // eslint-disable-line
 
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({

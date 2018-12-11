@@ -11,6 +11,8 @@ import Footer from 'react-components/shared/footer/footer.component';
 
 import 'styles/layouts/l-dashboard-root.scss';
 
+import reducer from 'react-components/dashboard-root/dashboard-root.reducer'; // eslint-disable-line
+
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({
     feedback: FeedbackMarkup()

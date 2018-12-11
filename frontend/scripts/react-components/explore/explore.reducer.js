@@ -43,4 +43,4 @@ const exploreReducerTypes = PropTypes => ({
   selectedTableColumnType: PropTypes.string.isRequired
 });
 
-export default createReducer(initialState, exploreReducer, exploreReducerTypes);
+export default createReducer('explore', initialState, exploreReducer, exploreReducerTypes);

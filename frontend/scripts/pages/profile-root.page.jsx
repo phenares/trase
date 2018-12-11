@@ -10,6 +10,8 @@ import TopNav from 'react-components/nav/top-nav/top-nav.container';
 
 import ProfileRoot from 'react-components/profile-root/profile-root.container';
 
+import reducer from 'react-components/profile-root/profile-root.reducer'; // eslint-disable-line
+
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({
     feedback: FeedbackMarkup()

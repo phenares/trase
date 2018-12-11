@@ -20,4 +20,9 @@ const staticContentReducerTypes = PropTypes => ({
   markdown: PropTypes.object.isRequired
 });
 
-export default createReducer(initialState, staticContentReducer, staticContentReducerTypes);
+export default createReducer(
+  'staticContent',
+  initialState,
+  staticContentReducer,
+  staticContentReducerTypes
+);

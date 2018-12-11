@@ -145,4 +145,4 @@ const appReducerTypes = PropTypes => ({
   windowSize: PropTypes.arrayOf(PropTypes.number).isRequired
 });
 
-export default createReducer(initialState, appReducer, appReducerTypes);
+export default createReducer('app', initialState, appReducer, appReducerTypes);

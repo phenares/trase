@@ -10,6 +10,12 @@ import Footer from 'react-components/shared/footer/footer.component';
 
 import 'styles/layouts/l-homepage.scss';
 
+import reducer from 'react-components/home/home.reducer'; // eslint-disable-line
+import newsletterReducer from 'react-components/shared/newsletter/newsletter.reducer'; // eslint-disable-line
+import toolReducer from 'react-components/tool/tool.reducer'; // eslint-disable-line
+import explore from 'react-components/explore/explore.reducer'; // eslint-disable-line
+
+
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({
     feedback: FeedbackMarkup()

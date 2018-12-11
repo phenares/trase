@@ -5,11 +5,12 @@ import createSagaMiddleware from 'redux-saga';
 import rangeTouch from 'rangetouch';
 import analyticsMiddleware from 'analytics/middleware';
 import { toolUrlStateMiddleware } from 'utils/stateURL';
-import * as appReducers from 'store';
 import router from './router/router';
 import routeSubscriber from './router/route-subscriber';
 import { register, unregister } from './worker';
 import { rootSaga } from './sagas';
+import reducerRegistry from './reducer-registry';
+import appReducer from 'reducers/app.reducer'; // eslint-disable-line
 
 import 'styles/_base.scss';
 import 'styles/_texts.scss';
@@ -47,7 +48,7 @@ if (process.env.NODE_ENV !== 'production' && PERF_TEST) {
   whyDidYouUpdate(React);
 }
 
-if (REDUX_LOGGER_ENABLED) {
+if (process.env.NODE_ENV !== 'production' && REDUX_LOGGER_ENABLED) {
   const { createLogger } = require('redux-logger');
 
   const loggerMiddleware = createLogger({
@@ -61,16 +62,16 @@ const composeEnhancers =
   (process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
-const reducers = combineReducers({
-  ...appReducers,
-  location: router.reducer
-});
+reducerRegistry.register('location', router.reducer);
+const initialReducers = combineReducers(reducerRegistry.getReducers());
 
 const store = createStore(
-  reducers,
+  initialReducers,
   undefined,
   composeEnhancers(router.enhancer, applyMiddleware(...middlewares))
 );
+
+reducerRegistry.setChangeListener(reducers => store.replaceReducer(combineReducers(reducers)));
 
 routeSubscriber(store);
 sagaMiddleware.run(rootSaga);

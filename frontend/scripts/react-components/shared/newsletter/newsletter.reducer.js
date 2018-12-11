@@ -18,4 +18,4 @@ const newsletterReducer = {
   }
 };
 
-export default createReducer(initialState, newsletterReducer);
+export default createReducer('newsletter', initialState, newsletterReducer);

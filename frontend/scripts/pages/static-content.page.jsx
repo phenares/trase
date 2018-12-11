@@ -11,6 +11,8 @@ import StaticContent from 'react-components/static-content/static-content.contai
 import TopNav from 'react-components/nav/top-nav/top-nav.container';
 import Footer from 'react-components/shared/footer/footer.component';
 
+import reducer from 'react-components/static-content/static-content.reducer'; // eslint-disable-line
+
 export const mount = (root, store, options) => {
   root.innerHTML = BaseMarkup({
     feedback: FeedbackMarkup()

@@ -588,4 +588,4 @@ const toolReducerTypes = PropTypes => ({
   loadedFlowsContextId: PropTypes.string
 });
 
-export default createReducer(toolInitialState, toolReducer, toolReducerTypes);
+export default createReducer('tool', toolInitialState, toolReducer, toolReducerTypes);

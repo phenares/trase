@@ -13,6 +13,8 @@ import { Provider } from 'react-redux';
 import TopNav from 'react-components/nav/top-nav/top-nav.container';
 import Footer from 'react-components/shared/footer/footer.component';
 
+import reducer from 'react-components/data-portal/data-portal.reducer'; // eslint-disable-line
+
 import DataPortalPage from 'react-components/data-portal/data-portal-page.container';
 
 export const mount = (root, store) => {
