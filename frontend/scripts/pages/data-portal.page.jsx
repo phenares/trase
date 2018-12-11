@@ -11,11 +11,14 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import TopNav from 'react-components/nav/top-nav/top-nav.container';
+
 import Footer from 'react-components/shared/footer/footer.component';
-
-import reducer from 'react-components/data-portal/data-portal.reducer'; // eslint-disable-line
-
 import DataPortalPage from 'react-components/data-portal/data-portal-page.container';
+import reducerRegistry from 'scripts/reducer-registry';
+
+import reducer from 'react-components/data-portal/data-portal.reducer';
+
+reducerRegistry.register('data', reducer);
 
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({

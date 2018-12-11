@@ -32,4 +32,4 @@ const homeReducerTypes = PropTypes => ({
   testimonials: PropTypes.arrayOf(PropTypes.object).isRequired
 });
 
-export default createReducer('home', initialState, homeReducer, homeReducerTypes);
+export default createReducer(initialState, homeReducer, homeReducerTypes);

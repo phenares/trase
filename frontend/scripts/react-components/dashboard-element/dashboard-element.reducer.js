@@ -266,9 +266,4 @@ const dashboardElementReducerTypes = PropTypes => {
 };
 
 export { initialState };
-export default createReducer(
-  'dashboardElement',
-  initialState,
-  dashboardElementReducer,
-  dashboardElementReducerTypes
-);
+export default createReducer(initialState, dashboardElementReducer, dashboardElementReducerTypes);

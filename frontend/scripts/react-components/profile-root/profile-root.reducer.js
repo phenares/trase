@@ -31,9 +31,4 @@ const profileRootReducerTypes = PropTypes => ({
   errorMessage: PropTypes.string
 });
 
-export default createReducer(
-  'profileRoot',
-  initialState,
-  profileRootReducer,
-  profileRootReducerTypes
-);
+export default createReducer(initialState, profileRootReducer, profileRootReducerTypes);

@@ -25,4 +25,4 @@ const dataReducerTypes = PropTypes => ({
   indicators: PropTypes.arrayOf(PropTypes.object).isRequired
 });
 
-export default createReducer('data', initialState, dataPortalReducer, dataReducerTypes);
+export default createReducer(initialState, dataPortalReducer, dataReducerTypes);

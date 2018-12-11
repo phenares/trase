@@ -8,10 +8,13 @@ import { Provider } from 'react-redux';
 import DashboardRoot from 'react-components/dashboard-root/dashboard-root.container';
 import TopNav from 'react-components/nav/top-nav/top-nav.container';
 import Footer from 'react-components/shared/footer/footer.component';
+import reducerRegistry from 'scripts/reducer-registry';
 
 import 'styles/layouts/l-dashboard-root.scss';
 
-import reducer from 'react-components/dashboard-root/dashboard-root.reducer'; // eslint-disable-line
+import reducer from 'react-components/dashboard-root/dashboard-root.reducer';
+
+reducerRegistry.register('dashboardRoot', reducer);
 
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({

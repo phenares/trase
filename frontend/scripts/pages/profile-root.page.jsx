@@ -9,8 +9,11 @@ import { Provider } from 'react-redux';
 import TopNav from 'react-components/nav/top-nav/top-nav.container';
 
 import ProfileRoot from 'react-components/profile-root/profile-root.container';
+import reducerRegistry from 'scripts/reducer-registry';
 
-import reducer from 'react-components/profile-root/profile-root.reducer'; // eslint-disable-line
+import reducer from 'react-components/profile-root/profile-root.reducer';
+
+reducerRegistry.register('profileRoot', reducer);
 
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({

@@ -7,14 +7,20 @@ import { Provider } from 'react-redux';
 import Home from 'react-components/home/home.container';
 import TopNav from 'react-components/nav/top-nav/top-nav.container';
 import Footer from 'react-components/shared/footer/footer.component';
+import reducerRegistry from 'scripts/reducer-registry';
 
 import 'styles/layouts/l-homepage.scss';
 
-import reducer from 'react-components/home/home.reducer'; // eslint-disable-line
-import newsletterReducer from 'react-components/shared/newsletter/newsletter.reducer'; // eslint-disable-line
-import toolReducer from 'react-components/tool/tool.reducer'; // eslint-disable-line
-import explore from 'react-components/explore/explore.reducer'; // eslint-disable-line
+import reducer from 'react-components/home/home.reducer';
+import newsletterReducer from 'react-components/shared/newsletter/newsletter.reducer';
+import toolReducer from 'react-components/tool/tool.reducer';
+import exploreReducer from 'react-components/explore/explore.reducer';
 
+
+reducerRegistry.register('home', reducer);
+reducerRegistry.register('newsletter', newsletterReducer);
+reducerRegistry.register('tool', toolReducer);
+reducerRegistry.register('explore', exploreReducer);
 
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({
