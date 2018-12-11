@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
  * BundleAnalyzerPlugin allows profiling the webpack generated js, to help identify improvement points
  * If you want to enable it, uncomment the line bellow and ´new BundleAnalyzerPlugin()´ further down.
  */
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const srcPath = path.join(__dirname, '..', 'scripts');
 
@@ -58,8 +58,7 @@ module.exports = {
       NAMED_MAPS_ENV: JSON.stringify(process.env.NAMED_MAPS_ENV),
       CARTO_ACCOUNT: JSON.stringify(process.env.CARTO_ACCOUNT)
     }),
-    new webpack.LoaderOptionsPlugin({ options: {} }),
-    new BundleAnalyzerPlugin()
+    new webpack.LoaderOptionsPlugin({ options: {} })
   ],
   resolve: {
     alias: {

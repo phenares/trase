@@ -5,12 +5,12 @@ import createSagaMiddleware from 'redux-saga';
 import rangeTouch from 'rangetouch';
 import analyticsMiddleware from 'analytics/middleware';
 import { toolUrlStateMiddleware } from 'utils/stateURL';
+import appReducer from 'reducers/app.reducer';
 import router from './router/router';
 import routeSubscriber from './router/route-subscriber';
 import { register, unregister } from './worker';
 import { rootSaga } from './sagas';
 import reducerRegistry from './reducer-registry';
-import appReducer from 'reducers/app.reducer'; // eslint-disable-line
 
 import 'styles/_base.scss';
 import 'styles/_texts.scss';
@@ -63,6 +63,7 @@ const composeEnhancers =
   compose;
 
 reducerRegistry.register('location', router.reducer);
+reducerRegistry.register('app', appReducer);
 const initialReducers = combineReducers(reducerRegistry.getReducers());
 
 const store = createStore(
