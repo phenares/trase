@@ -13,13 +13,10 @@ import 'styles/layouts/l-homepage.scss';
 
 import reducer from 'react-components/home/home.reducer';
 import newsletterReducer from 'react-components/shared/newsletter/newsletter.reducer';
-import toolReducer from 'react-components/tool/tool.reducer';
 import exploreReducer from 'react-components/explore/explore.reducer';
-
 
 reducerRegistry.register('home', reducer);
 reducerRegistry.register('newsletter', newsletterReducer);
-reducerRegistry.register('tool', toolReducer);
 reducerRegistry.register('explore', exploreReducer);
 
 export const mount = (root, store) => {

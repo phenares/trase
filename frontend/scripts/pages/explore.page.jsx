@@ -14,11 +14,8 @@ import 'styles/components/shared/dropdown.scss';
 import reducerRegistry from 'scripts/reducer-registry';
 
 import reducer from 'react-components/explore/explore.reducer';
-import toolReducer from 'react-components/tool/tool.reducer';
-
 
 reducerRegistry.register('explore', reducer);
-reducerRegistry.register('tool', toolReducer);
 
 export const mount = (root, store) => {
   root.innerHTML = BaseMarkup({
