@@ -14,8 +14,10 @@ import Footer from 'react-components/shared/footer/footer.component';
 import reducerRegistry from 'scripts/reducer-registry';
 
 import reducer from 'react-components/static-content/static-content.reducer';
+import teamReducer from 'react-components/team/team.reducer';
 
 reducerRegistry.register('staticContent', reducer);
+reducerRegistry.register('team', teamReducer);
 
 export const mount = (root, store, options) => {
   root.innerHTML = BaseMarkup({
