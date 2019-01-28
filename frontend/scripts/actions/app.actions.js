@@ -6,12 +6,10 @@ import {
   getURLFromParams
 } from 'utils/getURLFromParams';
 import {
-  TOGGLE_MAP,
   loadToolDataForCurrentContext,
-  SELECT_YEARS,
   loadNodes,
   loadLinks
-} from 'scripts/actions/tool.actions';
+} from 'scripts/react-components/tool/tool.actions';
 import { getContextById } from 'scripts/reducers/helpers/contextHelper';
 import getPageTitle from 'scripts/router/page-title';
 import { redirect } from 'redux-first-router';
@@ -21,17 +19,16 @@ export const LOAD_INITIAL_CONTEXT = 'LOAD_INITIAL_CONTEXT';
 export const SET_CONTEXT = 'SET_CONTEXT';
 export const DISPLAY_STORY_MODAL = 'DISPLAY_STORY_MODAL';
 export const LOAD_TOOLTIP = 'LOAD_TOOLTIP';
-export const SET_SANKEY_SIZE = 'SET_SANKEY_SIZE';
 export const SET_TOOLTIPS = 'SET_TOOLTIPS';
 export const SHOW_DISCLAIMER = 'SHOW_DISCLAIMER';
 export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
-export const TOGGLE_MAP_LAYERS_MENU = 'TOGGLE_MAP_LAYERS_MENU';
 export const CLOSE_STORY_MODAL = 'CLOSE_STORY_MODAL';
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 export const LOAD_SEARCH_RESULTS = 'LOAD_SEARCH_RESULTS';
 export const SET_CONTEXTS = 'SET_CONTEXTS';
 export const SET_CONTEXT_IS_USER_SELECTED = 'SET_CONTEXT_IS_USER_SELECTED';
 export const APP__SET_LOADING = 'APP__SET_LOADING';
+export const SELECT_YEARS = 'SELECT_YEARS';
 
 export function selectInitialContextById(contextId) {
   return (dispatch, getState) => {
@@ -69,31 +66,6 @@ export function selectContextById(contextId) {
     }
 
     document.title = getPageTitle(getState());
-  };
-}
-
-export function resize() {
-  return {
-    type: SET_SANKEY_SIZE
-  };
-}
-
-export function toggleMap(forceState = null) {
-  return dispatch => {
-    dispatch({
-      type: TOGGLE_MAP,
-      forceState
-    });
-    dispatch({ type: SET_SANKEY_SIZE });
-  };
-}
-
-export function toggleMapLayerMenu() {
-  return dispatch => {
-    dispatch({
-      type: TOGGLE_MAP_LAYERS_MENU
-    });
-    dispatch({ type: SET_SANKEY_SIZE });
   };
 }
 

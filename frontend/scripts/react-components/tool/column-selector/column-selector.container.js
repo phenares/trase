@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { toggleDropdown } from 'actions/app.actions';
-import { selectColumn } from 'actions/tool.actions';
+import { selectColumn } from 'react-components/tool/tool.actions';
 import ColumnSelector from 'react-components/tool/column-selector/column-selector.component';
 
 const mapStateToProps = state => ({

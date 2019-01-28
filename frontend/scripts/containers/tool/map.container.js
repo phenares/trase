@@ -1,7 +1,12 @@
 /* eslint-disable no-shadow */
 // see sankey.container for details on how to use those containers
-import { toggleMap, toggleMapLayerMenu } from 'actions/app.actions';
-import { selectNodeFromGeoId, highlightNodeFromGeoId, saveMapView } from 'actions/tool.actions';
+import {
+  selectNodeFromGeoId,
+  highlightNodeFromGeoId,
+  saveMapView,
+  toggleMap,
+  toggleMapLayerMenu
+} from 'react-components/tool/tool.actions';
 import {
   getSelectedNodesGeoIds,
   getHighlightedNodesGeoIds

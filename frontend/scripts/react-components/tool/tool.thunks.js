@@ -1,11 +1,12 @@
-import { displayStoryModal, loadDisclaimer, resize } from 'actions/app.actions';
+import { displayStoryModal, loadDisclaimer } from 'actions/app.actions';
 import {
   GET_COLUMNS,
   RESET_TOOL_LOADERS,
   loadMapVectorData,
   loadNodes,
-  loadLinks
-} from 'scripts/actions/tool.actions';
+  loadLinks,
+  resize
+} from 'react-components/tool/tool.actions';
 import {
   GET_COLUMNS_URL,
   GET_ALL_NODES_URL,

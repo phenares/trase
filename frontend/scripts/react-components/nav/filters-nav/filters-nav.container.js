@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { toggleDropdown, toggleMap } from 'actions/app.actions';
+import { toggleDropdown } from 'actions/app.actions';
 import FiltersNav from 'react-components/nav/filters-nav/filters-nav.component';
 import { getNavFilters } from 'react-components/nav/filters-nav/filters-nav.selectors';
 import routerLinks from 'router/nav-links';
@@ -10,7 +10,12 @@ import {
   setLogisticsMapActiveModal,
   selectLogisticsMapInspectionLevel
 } from 'react-components/logistics-map/logistics-map.actions';
-import { selectBiomeFilter, selectResizeBy, selectView } from 'actions/tool.actions';
+import {
+  selectBiomeFilter,
+  selectResizeBy,
+  selectView,
+  toggleMap
+} from 'react-components/tool/tool.actions';
 
 function mapStateToProps(state) {
   return {

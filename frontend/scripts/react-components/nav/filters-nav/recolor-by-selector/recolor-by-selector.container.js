@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { selectRecolorBy } from 'actions/tool.actions';
+import { selectRecolorBy } from 'react-components/tool/tool.actions';
 import RecolorBySelector from 'react-components/nav/filters-nav/recolor-by-selector/recolor-by-selector.component';
 
 const mapStateToProps = state => ({

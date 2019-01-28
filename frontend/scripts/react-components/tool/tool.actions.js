@@ -17,6 +17,7 @@ import {
   GET_NODE_ATTRIBUTES_URL,
   getURLFromParams
 } from 'utils/getURLFromParams';
+import { SELECT_YEARS } from 'actions/app.actions';
 import contextLayersCarto from 'named-maps/tool_named_maps_carto';
 import getNodeIdFromGeoId from 'actions/helpers/getNodeIdFromGeoId';
 import setGeoJSONMeta from 'actions/helpers/setGeoJSONMeta';
@@ -33,6 +34,7 @@ import { getCurrentContext } from 'reducers/helpers/contextHelper';
 import { getSelectedNodesColumnsPos } from 'react-components/tool/tool.selectors';
 import pSettle from 'p-settle';
 
+export const SET_SANKEY_SIZE = 'SET_SANKEY_SIZE';
 export const RESET_SELECTION = 'RESET_SELECTION';
 export const GET_COLUMNS = 'GET_COLUMNS';
 export const RESET_TOOL_LOADERS = 'RESET_TOOL_LOADERS';
@@ -45,7 +47,6 @@ export const UPDATE_NODE_SELECTION = 'UPDATE_NODE_SELECTION';
 export const HIGHLIGHT_NODE = 'HIGHLIGHT_NODE';
 export const FILTER_LINKS_BY_NODES = 'FILTER_LINKS_BY_NODES';
 export const SELECT_BIOME_FILTER = 'SELECT_BIOME_FILTER';
-export const SELECT_YEARS = 'SELECT_YEARS';
 export const SELECT_RESIZE_BY = 'SELECT_RESIZE_BY';
 export const SELECT_RECOLOR_BY = 'SELECT_RECOLOR_BY';
 export const SELECT_VIEW = 'SELECT_VIEW';
@@ -65,6 +66,7 @@ export const TOGGLE_MAP_SIDEBAR_GROUP = 'TOGGLE_MAP_SIDEBAR_GROUP';
 export const SHOW_LINKS_ERROR = 'SHOW_LINKS_ERROR';
 export const RESET_TOOL_STATE = 'RESET_TOOL_STATE';
 export const SET_SANKEY_SEARCH_VISIBILITY = 'SET_SANKEY_SEARCH_VISIBILITY';
+export const TOGGLE_MAP_LAYERS_MENU = 'TOGGLE_MAP_LAYERS_MENU';
 
 const _reloadLinks = (param, value, type, reloadLinks = true) => dispatch => {
   const action = {
@@ -129,6 +131,12 @@ const _setBiomeFilterAction = (biomeFilterName, state) => {
     payload: selectedBiomeFilter
   };
 };
+
+export function resize() {
+  return {
+    type: SET_SANKEY_SIZE
+  };
+}
 
 export function selectView(detailedView, reloadLinks) {
   return _reloadLinks('detailedView', detailedView, SELECT_VIEW, reloadLinks);
@@ -591,6 +599,7 @@ export function setMapContextLayers(contextualLayers) {
 
         if (
           typeof selectedMapContextualLayers !== 'undefined' &&
+          selectedMapContextualLayers !== null &&
           selectedMapContextualLayers.length
         ) {
           dispatch({
@@ -940,6 +949,25 @@ export function toggleMapSidebarGroup(id) {
   return {
     type: TOGGLE_MAP_SIDEBAR_GROUP,
     id: parseInt(id, 10)
+  };
+}
+
+export function toggleMap(forceState = null) {
+  return dispatch => {
+    dispatch({
+      type: TOGGLE_MAP,
+      forceState
+    });
+    dispatch({ type: SET_SANKEY_SIZE });
+  };
+}
+
+export function toggleMapLayerMenu() {
+  return dispatch => {
+    dispatch({
+      type: TOGGLE_MAP_LAYERS_MENU
+    });
+    dispatch({ type: SET_SANKEY_SIZE });
   };
 }
 

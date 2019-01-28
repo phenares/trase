@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import { selectNode, navigateToProfile, resetState } from 'actions/tool.actions';
+import { selectNode, navigateToProfile, resetState } from 'react-components/tool/tool.actions';
 import connect from 'connect';
 import NodesTitles from 'components/tool/nodesTitles.component';
 import {

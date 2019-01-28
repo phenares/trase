@@ -1,4 +1,4 @@
-import { TOGGLE_MAP_LAYERS_MENU, SET_CONTEXT } from 'actions/app.actions';
+import { SET_CONTEXT, SELECT_YEARS } from 'actions/app.actions';
 import {
   SELECT_BIOME_FILTER,
   SELECT_COLUMN,
@@ -6,10 +6,10 @@ import {
   SELECT_RECOLOR_BY,
   SELECT_RESIZE_BY,
   SELECT_VIEW,
-  SELECT_YEARS,
   TOGGLE_MAP,
+  TOGGLE_MAP_LAYERS_MENU,
   UPDATE_NODE_SELECTION
-} from 'actions/tool.actions';
+} from 'react-components/tool/tool.actions';
 
 export default [
   {

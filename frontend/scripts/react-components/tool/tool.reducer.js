@@ -29,8 +29,10 @@ import {
   EXPAND_NODE_SELECTION,
   COLLAPSE_NODE_SELECTION,
   SET_MAP_DIMENSIONS_DATA,
-  RESET_TOOL_LOADERS
-} from 'actions/tool.actions';
+  RESET_TOOL_LOADERS,
+  TOGGLE_MAP_LAYERS_MENU,
+  SET_SANKEY_SIZE
+} from 'react-components/tool/tool.actions';
 import {
   LOAD_INITIAL_CONTEXT,
   SET_CONTEXT,
@@ -100,9 +102,14 @@ export const toolInitialState = {
   unmergedLinks: [],
   visibleNodes: [],
   visibleNodesByColumn: [],
-  loadedFlowsContextId: null
+  loadedFlowsContextId: null,
+  isMapLayerVisible: false,
+  sankeySize: undefined
 };
 
+const isSankeyExpanded = state => state.isMapLayerVisible !== true && state.isMapVisible !== true;
+
+console.log(RESET_SELECTION);
 const toolReducer = {
   [LOAD_STATE_FROM_URL](state, action) {
     return { ...state, initialDataLoading: true, ...action.payload.tool };
@@ -246,17 +253,14 @@ const toolReducer = {
       selectedColumnsIds
     });
   },
-
   [SET_FLOWS_LOADING_STATE](state, action) {
     // TODO: remove this see tool.thunks.js
     const { loadedFlowsContextId } = action.payload;
     return { ...state, flowsLoading: true, loadedFlowsContextId };
   },
-
   [SET_MAP_LOADING_STATE](state) {
     return Object.assign({}, state, { mapLoading: true });
   },
-
   [SET_NODE_ATTRIBUTES](state, action) {
     const nodesMeta = action.payload;
 
@@ -347,7 +351,6 @@ const toolReducer = {
       forcedOverview: action.forcedOverview
     });
   },
-
   [SELECT_COLUMN](state, action) {
     // TODO also update choropleth with default selected indicators
     const selectedColumnsIds = [].concat(state.selectedColumnsIds);
@@ -526,6 +529,15 @@ const toolReducer = {
   },
   [RESET_TOOL_LOADERS](state) {
     return Object.assign({}, state, { flowsLoading: true, mapLoading: true });
+  },
+  [TOGGLE_MAP_LAYERS_MENU](state) {
+    return Object.assign({}, state, { isMapLayerVisible: !state.isMapLayerVisible });
+  },
+  [SET_SANKEY_SIZE](state) {
+    if (isSankeyExpanded(state)) {
+      return { ...state, sankeySize: [window.innerWidth - 392, window.innerHeight - 175] };
+    }
+    return state;
   }
 };
 
@@ -572,7 +584,8 @@ const toolReducerTypes = PropTypes => ({
   unmergedLinks: PropTypes.arrayOf(PropTypes.object).isRequired,
   visibleNodes: PropTypes.arrayOf(PropTypes.object).isRequired,
   visibleNodesByColumn: PropTypes.arrayOf(PropTypes.object).isRequired,
-  loadedFlowsContextId: PropTypes.string
+  loadedFlowsContextId: PropTypes.string,
+  isMapLayerVisible: PropTypes.bool
 });
 
 export default createReducer(toolInitialState, toolReducer, toolReducerTypes);

@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import connect from 'connect';
 import MapDimensions from 'components/tool/map-dimensions.component';
-import { toggleMapSidebarGroup, toggleMapDimension } from 'actions/tool.actions';
+import { toggleMapSidebarGroup, toggleMapDimension } from 'react-components/tool/tool.actions';
 import { loadTooltip } from 'actions/app.actions';
 
 const mapMethodsToState = state => ({

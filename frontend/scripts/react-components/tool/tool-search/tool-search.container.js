@@ -1,4 +1,4 @@
-import { selectExpandedNode, setSankeySearchVisibility } from 'actions/tool.actions';
+import { selectExpandedNode, setSankeySearchVisibility } from 'react-components/tool/tool.actions';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 import ToolSearch from 'react-components/tool/tool-search/tool-search.component';

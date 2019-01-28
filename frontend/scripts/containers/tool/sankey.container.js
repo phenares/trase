@@ -7,7 +7,7 @@ import {
   collapseNodeSelection,
   expandNodeSelection,
   resetState
-} from 'actions/tool.actions';
+} from 'react-components/tool/tool.actions';
 import connect from 'connect';
 import Sankey from 'components/tool/sankey.component';
 
@@ -22,7 +22,7 @@ const mapMethodsToState = state => ({
   showLoadedLinks: {
     _comparedValue: state => state.tool.links,
     _returnedValue: state => ({
-      sankeySize: state.app.sankeySize,
+      sankeySize: state.tool.sankeySize,
       selectedRecolorBy: state.tool.selectedRecolorBy,
       currentQuant: state.tool.currentQuant,
       selectedNodesIds: state.tool.selectedNodesIds,
@@ -33,9 +33,9 @@ const mapMethodsToState = state => ({
     })
   },
   resizeViewport: {
-    _comparedValue: state => state.app.sankeySize,
+    _comparedValue: state => state.tool.sankeySize,
     _returnedValue: state => ({
-      sankeySize: state.app.sankeySize,
+      sankeySize: state.tool.sankeySize,
       selectedRecolorBy: state.tool.selectedRecolorBy,
       currentQuant: state.tool.currentQuant,
       selectedNodesIds: state.tool.selectedNodesIds

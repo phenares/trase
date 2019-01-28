@@ -2,25 +2,22 @@ import {
   DISPLAY_STORY_MODAL,
   LOAD_SEARCH_RESULTS,
   LOAD_TOOLTIP,
-  SET_SANKEY_SIZE,
   SET_SEARCH_TERM,
   SET_TOOLTIPS,
   SHOW_DISCLAIMER,
   TOGGLE_DROPDOWN,
-  TOGGLE_MAP_LAYERS_MENU,
   SET_CONTEXTS,
   SET_CONTEXT_IS_USER_SELECTED,
   SET_CONTEXT,
   LOAD_INITIAL_CONTEXT,
   LOAD_STATE_FROM_URL,
-  APP__SET_LOADING
+  APP__SET_LOADING,
+  SELECT_YEARS
 } from 'actions/app.actions';
 import createReducer from 'utils/createReducer';
-import { SELECT_YEARS } from 'actions/tool.actions';
 
 const initialState = {
   windowSize: [window.innerWidth, window.innerHeight],
-  isMapLayerVisible: false,
   isAppMenuVisible: false,
   tooltipCheck: 0,
   tooltips: null,
@@ -45,22 +42,9 @@ const initialState = {
   selectedYears: []
 };
 
-const isSankeyExpanded = state => state.isMapLayerVisible !== true && state.isMapVisible !== true;
-
 const appReducer = {
   [LOAD_STATE_FROM_URL](state, action) {
     return { ...state, initialDataLoading: true, ...action.payload.app };
-  },
-  [SET_SANKEY_SIZE](state) {
-    if (isSankeyExpanded(state)) {
-      return Object.assign({}, state, {
-        sankeySize: [window.innerWidth - 392, window.innerHeight - 175]
-      });
-    }
-    return state;
-  },
-  [TOGGLE_MAP_LAYERS_MENU](state) {
-    return Object.assign({}, state, { isMapLayerVisible: !state.isMapLayerVisible });
   },
   [LOAD_TOOLTIP](state) {
     return Object.assign({}, state, { tooltipCheck: (state.tooltipCheck || 0) + 1 });
@@ -134,7 +118,6 @@ const appReducerTypes = PropTypes => ({
   contexts: PropTypes.arrayOf(PropTypes.object).isRequired,
   contextIsUserSelected: PropTypes.bool.isRequired,
   currentDropdown: PropTypes.string,
-  isMapLayerVisible: PropTypes.bool,
   isAppMenuVisible: PropTypes.bool,
   modal: PropTypes.shape({
     visibility: PropTypes.bool,
