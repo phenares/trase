@@ -36,11 +36,6 @@ import {
 import MapDimensionsContainer from 'containers/tool/map-dimensions.container';
 
 import EventManager from 'utils/eventManager';
-import reducerRegistry from 'scripts/reducer-registry';
-
-import reducer from 'react-components/tool/tool.reducer';
-
-reducerRegistry.register('tool', reducer);
 
 const evManager = new EventManager();
 let containers = [];

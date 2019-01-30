@@ -3,6 +3,8 @@ require('dotenv').config({ silent: true });
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
+
 /**
  * BundleAnalyzerPlugin allows profiling the webpack generated js, to help identify improvement points
  * If you want to enable it, uncomment the line bellow and ´new BundleAnalyzerPlugin()´ further down.
@@ -58,7 +60,18 @@ module.exports = {
       NAMED_MAPS_ENV: JSON.stringify(process.env.NAMED_MAPS_ENV),
       CARTO_ACCOUNT: JSON.stringify(process.env.CARTO_ACCOUNT)
     }),
-    new webpack.LoaderOptionsPlugin({ options: {} })
+    new webpack.LoaderOptionsPlugin({ options: {} }),
+    new CircularDependencyPlugin({
+      // exclude detection of files based on a RegExp
+      exclude: /node_modules/,
+      // add errors to webpack instead of warnings
+      failOnError: false,
+      // allow import cycles that include an asyncronous import,
+      // e.g. via import(/* webpackMode: "weak" */ './file.js')
+      allowAsyncCycles: false,
+      // set the current working directory for displaying module paths
+      cwd: process.cwd()
+    })
   ],
   resolve: {
     alias: {
