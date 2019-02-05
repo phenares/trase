@@ -63,14 +63,16 @@ module Api
           include_domestic_consumption = options.
             delete(:include_domestic_consumption)
           attribute_type = attribute.class.name.demodulize.downcase
-          value_table = 'flow_' + attribute_type + 's'
-          query = Api::V3::Flow.select(select_clause(value_table)).
-            joins(value_table_join_clause(value_table)).
+          values_table = values_table(attribute_type)
+          query = Api::V3::Flow.
+            from("#{flows_table} #{flows_alias}").
+            select(select_clause(values_table)).
+            joins(values_table_join_clause(values_table)).
             joins(nodes_join_clause).
             joins('JOIN node_properties ON nodes.id = node_properties.node_id').
-            where(context_id: @context.id).
+            #where(context_id: @context.id).
             where('NOT nodes.is_unknown').
-            where("#{value_table}.#{attribute_type}_id" => attribute.id)
+            where("#{values_table}.#{attribute_type}_id" => attribute.id)
 
           unless include_domestic_consumption
             query = query.where('NOT node_properties.is_domestic_consumption')
@@ -89,13 +91,13 @@ module Api
             where(year: (@year_start..@year_end))
         end
 
-        def select_clause(value_table)
+        def select_clause(values_table)
           ActiveRecord::Base.send(
             :sanitize_sql_array,
             [
               [
                 'flows.path[?] AS node_id',
-                "SUM(#{value_table}.value)::DOUBLE PRECISION AS value",
+                "SUM(#{values_table}.value)::DOUBLE PRECISION AS value",
                 'nodes.name AS name',
                 "node_properties.is_domestic_consumption AS \
 is_domestic_consumption",
@@ -116,8 +118,8 @@ is_domestic_consumption",
           )
         end
 
-        def value_table_join_clause(value_table)
-          "JOIN #{value_table} ON flows.id = #{value_table}.flow_id"
+        def values_table_join_clause(values_table)
+          "JOIN #{values_table} ON flows.id = #{values_table}.flow_id"
         end
 
         def group_clause
@@ -133,6 +135,22 @@ is_domestic_consumption",
               @other_node_index
             ]
           )
+        end
+
+        def flows_table
+          :"partitioned_flows_#{@context.id}"
+        end
+
+        def flows_alias
+          :flows
+        end
+
+        def values_table(attribute_type)
+          :"partitioned_flow_#{attribute_type}s_#{@context.id}"
+        end
+
+        def values_alias(attribute_type)
+          :"flow_#{attribute_type}s"
         end
       end
     end
