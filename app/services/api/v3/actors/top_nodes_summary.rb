@@ -78,6 +78,12 @@ module Api
               include_domestic_consumption: false,
               limit: nil
             ).all
+          @top_node_values_by_year_hash = {}
+          @top_node_values_by_year.map do |top_node_value|
+            @top_node_values_by_year_hash[top_node_value['year']] ||= {}
+            @top_node_values_by_year_hash[top_node_value['year']][top_node_value['node_id']] =
+              top_node_value['value']
+          end
         end
 
         def nodes_by_year_summary_for_indicator(
@@ -93,27 +99,20 @@ module Api
             first
 
           profile_type_name = profile_type.name unless profile_type.nil?
-
+          lines = nil
           lines = @top_nodes.map do |node|
             {
               name: node['name'],
               node_id: node['node_id'],
               geo_id: node['geo_id'],
-              values: years.map do |year|
-                year_node = @top_node_values_by_year.find do |value|
-                  value['node_id'] == node['node_id'] && value['year'] == year
-                end
-                year_node && year_node['value']
-              end
+              values: years.map { |year| @top_node_values_by_year_hash[year][node['node_id']] }
             }
           end
           year_idx = years.index(@year)
-
           lines.each do |line|
             value = line[:values][year_idx]
             line[:value9] = value && bucket_index_for_value(buckets, value)
           end
-
           {
             lines: lines,
             unit: 't',
@@ -136,6 +135,11 @@ module Api
             buckets.size # last bucket
           end
         end
+
+        add_method_tracer :initialize_flow_stats_for_node, 'Custom/top_nodes_summary/initialize_flow_stats_for_node'
+        add_method_tracer :initialize_top_nodes, 'Custom/top_nodes_summary/initialize_top_nodes'
+        add_method_tracer :nodes_by_year_summary_for_indicator, 'Custom/top_nodes_summary/nodes_by_year_summary_for_indicator'
+        add_method_tracer :bucket_index_for_value, 'Custom/top_nodes_summary/bucket_index_for_value'
       end
     end
   end
