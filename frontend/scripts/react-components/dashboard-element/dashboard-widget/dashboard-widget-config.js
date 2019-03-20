@@ -106,6 +106,7 @@ export default {
   },
   pie: {
     ...defaults,
+    cartesianGrid: undefined,
     type: 'pie',
     colors: ['#fff0c2', '#9a1e2a', '#ee5463', '#c62c3b', '#fd7d8a', '#ffb1b9', '#ffffff'],
     xAxis: undefined,
@@ -122,6 +123,10 @@ export default {
         innerRadius: '60%',
         outerRadius: '80%'
       }
+    },
+    tooltip: {
+      ...defaults.tooltip,
+      formatter: value => value
     }
   },
   line: {

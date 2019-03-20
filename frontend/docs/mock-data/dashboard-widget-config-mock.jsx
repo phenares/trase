@@ -61,15 +61,14 @@ const meta = {
   }
 };
 
-const tooltip = {
-  ...CHART_CONFIG.tooltip,
-  content: <DashboardWidgetTooltip meta={meta} />,
+const getTooltip = chartType => ({
   cursor: {
     opacity: 0.5,
     stroke: '#9a1e2a',
     strokeWidth: 2
-  }
-};
+  },
+  content: <DashboardWidgetTooltip meta={meta} {...CHART_CONFIG[chartType].tooltip} />
+});
 
 const color = [{ label: 'Production of soy', color: '#ee5463' }];
 
@@ -80,7 +79,7 @@ const colors = [
 
 const lineConfig = {
   ...CHART_CONFIG.line,
-  tooltip,
+  tooltip: getTooltip('line'),
   colors,
   yKeys: {
     lines: {
@@ -116,7 +115,7 @@ export default {
   horizontalBar: {
     ...CHART_CONFIG.horizontalBar,
     colors: color,
-    tooltip,
+    tooltip: getTooltip('horizontalBar'),
     type: 'bar',
     xKeys: {
       bars: {
@@ -133,7 +132,7 @@ export default {
   horizontalStackedBar: {
     ...CHART_CONFIG.horizontalBar,
     colors,
-    tooltip,
+    tooltip: getTooltip('horizontalBar'),
     type: 'bar',
     xKeys: {
       bars: {
@@ -162,7 +161,7 @@ export default {
   },
   pie: {
     ...CHART_CONFIG.pie,
-    tooltip,
+    tooltip: getTooltip('pie'),
     colors,
     type: 'pie',
     yKeys: {
