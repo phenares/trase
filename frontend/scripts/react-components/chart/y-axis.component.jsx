@@ -27,7 +27,7 @@ function CustomYAxis({ config, data }) {
     yAxis && (
       <YAxis
         axisLine={false}
-        tickSize={-50}
+        tickSize={-100}
         mirror
         tickMargin={0}
         tickLine={false}
