@@ -34,6 +34,15 @@ const meta = {
       suffix: ''
     }
   },
+  y2: {
+    type: 'number',
+    label: 'Production of Soy',
+    tooltip: {
+      prefix: '',
+      format: '',
+      suffix: 't'
+    }
+  },
   x1: {
     label: 'Trade Volume',
     tooltip: {
