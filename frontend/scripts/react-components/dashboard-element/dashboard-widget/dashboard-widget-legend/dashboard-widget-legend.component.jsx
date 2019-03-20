@@ -8,16 +8,17 @@ function DashboardWidgetLegend(props) {
   if (colors.length < 2) return null;
   return (
     <div className="c-dashboard-widget-legend">
-      <div className="row -equal-height">
-        {colors.map((d, i) => (
-          <div key={i} className="column small-4">
-            <div className="dashboard-widget-key-item">
-              <span style={{ backgroundColor: d.color || 'white' }} />
-              <p>{d.label}</p>
-            </div>
+      {colors.map((d, i) => (
+        <div key={i} className="column small-4">
+          <div className="dashboard-widget-key-item">
+            <span
+              className="dashboard-widget-color-span"
+              style={{ backgroundColor: d.color || 'white' }}
+            />
+            <p>{d.label}</p>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
