@@ -2,20 +2,26 @@
 
 .c-dashboard-widget-legend {
   border-bottom: solid 1px rgba($white, 0.13);
-  padding: 31px 42px;
+  padding: 31px 42px 21px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .dashboard-widget-key-item {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: flex-start;
+  flex: 1;
+  padding-right: 10px;
+  max-width: 120px;
+  margin-bottom: 10px;
+
+  .dashboard-widget-color-span {
+    border-radius: 2px;
+  }
 
   .column {
     margin-top: 15px;
-  }
-
-  &:last-child {
-    margin: 0;
   }
 
   span {
