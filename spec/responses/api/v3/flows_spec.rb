@@ -4,6 +4,10 @@ RSpec.describe 'Flows', type: :request do
   include_context 'api v3 brazil flows'
   include_context 'api v3 brazil flows quants'
 
+  before(:each) do
+    Api::V3::TablePartitions.create
+  end
+
   describe 'GET /api/v2/contexts/:context_id/flows' do
     let(:node_types) {
       [

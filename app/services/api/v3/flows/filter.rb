@@ -2,6 +2,8 @@ module Api
   module V3
     module Flows
       class Filter
+        include Api::V3::PartitionedFlows
+
         attr_reader :errors, :flows, :active_nodes, :total_height, :other_nodes_ids,
                     :resize_quant, :recolor_ind, :recolor_qual
         # params:
@@ -121,10 +123,10 @@ module Api
           # filter out nodes not involved in any flows in this context
           @selected_nodes_ids = @selected_nodes_ids.select do |node_id|
             Api::V3::Flow.
+              from("#{flows_table} flows").
               select('true').
-              joins(:flow_quants).
-              where('flow_quants.quant_id' => @resize_quant.id).
-              where(context_id: @context.id). # TODO: verify this
+              joins("JOIN #{flow_quants_table} flow_quants ON flow_quants.flow_id = flows.id").
+              where("flow_quants.quant_id" => @resize_quant.id).
               where('? = ANY(flows.path)', node_id).
               where('year >= ? AND year <= ?', @year_start, @year_end).any?
           end
@@ -267,13 +269,6 @@ module Api
         end
 
         def flows_query
-          recolor_id, recolor_value_table, recolor_column =
-            if @recolor_ind
-              [@recolor_ind.id, Api::V3::FlowInd.table_name, 'ind_id']
-            elsif @recolor_qual
-              [@recolor_qual.id, Api::V3::FlowQual.table_name, 'qual_id']
-            end
-
           select_clause_parts = [
             'flows.id',
             'ARRAY[' +
@@ -301,12 +296,20 @@ module Api
               *(@active_node_types_positions.map { |ai| ai + 1 })
             ]
           )
+
+          recolor_id, recolor_value_table, recolor_value_alias, recolor_column =
+            if @recolor_ind
+              [@recolor_ind.id, flow_inds_table, 'flow_inds', 'ind_id']
+            elsif @recolor_qual
+              [@recolor_qual.id, flow_quals_table, 'flow_quals', 'qual_id']
+            end
+
           recolor_join_clause = ActiveRecord::Base.send(
             :sanitize_sql_array,
             [
-              "LEFT JOIN #{recolor_value_table} ON \
-              #{recolor_value_table}.flow_id = flows.id \
-              AND #{recolor_value_table}.#{recolor_column} = ?",
+              "LEFT JOIN #{recolor_value_table} #{recolor_value_alias} ON \
+              #{recolor_value_alias}.flow_id = flows.id \
+              AND #{recolor_value_alias}.#{recolor_column} = ?",
               recolor_id
             ]
           )
@@ -323,10 +326,10 @@ module Api
 
         def basic_flows_query
           query = Api::V3::Flow.
-            joins(:flow_quants).
-            where(context_id: @context.id).
+            from("#{flows_table} flows").
+            joins("JOIN #{flow_quants_table} flow_quants ON flow_quants.flow_id = flows.id").
             where('year >= ? AND year <= ?', @year_start, @year_end).
-            where('flow_quants.quant_id' => @resize_quant.id)
+            where("flow_quants.quant_id" => @resize_quant.id)
 
           if @biome_position
             query = query.where('path[?] = ?', @biome_position, @biome_id)

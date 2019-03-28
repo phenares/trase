@@ -49,6 +49,10 @@ RSpec.describe Api::V3::Flows::Filter do
     )
   }
 
+  before(:each) do
+    Api::V3::TablePartitions.create
+  end
+
   describe :active_nodes do
     let(:node_types) {
       [
