@@ -1773,7 +1773,7 @@ CREATE TABLE public.context_node_type_properties (
     updated_at timestamp without time zone NOT NULL,
     is_choropleth_disabled boolean DEFAULT false NOT NULL,
     role character varying,
-    CONSTRAINT context_node_type_properties_role_check CHECK (((role)::text = ANY (ARRAY[('source'::character varying)::text, ('exporter'::character varying)::text, ('importer'::character varying)::text, ('destination'::character varying)::text])))
+    CONSTRAINT context_node_type_properties_role_check CHECK (((role)::text = ANY ((ARRAY['source'::character varying, 'exporter'::character varying, 'importer'::character varying, 'destination'::character varying])::text[])))
 );
 
 
@@ -4813,6 +4813,137 @@ CREATE MATERIALIZED VIEW public.nodes_mv AS
 
 
 --
+-- Name: partitioned_flow_inds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.partitioned_flow_inds (
+    id bigint NOT NULL,
+    context_id integer,
+    flow_id integer,
+    ind_id integer,
+    value double precision
+)
+PARTITION BY LIST (context_id);
+
+
+--
+-- Name: partitioned_flow_inds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.partitioned_flow_inds_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: partitioned_flow_inds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.partitioned_flow_inds_id_seq OWNED BY public.partitioned_flow_inds.id;
+
+
+--
+-- Name: partitioned_flow_quals; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.partitioned_flow_quals (
+    id bigint NOT NULL,
+    context_id integer,
+    flow_id integer,
+    qual_id integer,
+    value text
+)
+PARTITION BY LIST (context_id);
+
+
+--
+-- Name: partitioned_flow_quals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.partitioned_flow_quals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: partitioned_flow_quals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.partitioned_flow_quals_id_seq OWNED BY public.partitioned_flow_quals.id;
+
+
+--
+-- Name: partitioned_flow_quants; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.partitioned_flow_quants (
+    id bigint NOT NULL,
+    context_id integer,
+    flow_id integer,
+    quant_id integer,
+    value double precision
+)
+PARTITION BY LIST (context_id);
+
+
+--
+-- Name: partitioned_flow_quants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.partitioned_flow_quants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: partitioned_flow_quants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.partitioned_flow_quants_id_seq OWNED BY public.partitioned_flow_quants.id;
+
+
+--
+-- Name: partitioned_flows; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.partitioned_flows (
+    id bigint NOT NULL,
+    context_id integer,
+    year smallint,
+    path integer[] DEFAULT '{}'::integer[]
+)
+PARTITION BY LIST (context_id);
+
+
+--
+-- Name: partitioned_flows_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.partitioned_flows_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: partitioned_flows_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.partitioned_flows_id_seq OWNED BY public.partitioned_flows.id;
+
+
+--
 -- Name: profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -5814,6 +5945,34 @@ ALTER TABLE ONLY public.node_types ALTER COLUMN id SET DEFAULT nextval('public.n
 --
 
 ALTER TABLE ONLY public.nodes ALTER COLUMN id SET DEFAULT nextval('public.nodes_id_seq'::regclass);
+
+
+--
+-- Name: partitioned_flow_inds id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.partitioned_flow_inds ALTER COLUMN id SET DEFAULT nextval('public.partitioned_flow_inds_id_seq'::regclass);
+
+
+--
+-- Name: partitioned_flow_quals id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.partitioned_flow_quals ALTER COLUMN id SET DEFAULT nextval('public.partitioned_flow_quals_id_seq'::regclass);
+
+
+--
+-- Name: partitioned_flow_quants id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.partitioned_flow_quants ALTER COLUMN id SET DEFAULT nextval('public.partitioned_flow_quants_id_seq'::regclass);
+
+
+--
+-- Name: partitioned_flows id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.partitioned_flows ALTER COLUMN id SET DEFAULT nextval('public.partitioned_flows_id_seq'::regclass);
 
 
 --
@@ -8955,6 +9114,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190110094614'),
 ('20190110140539'),
 ('20190111121850'),
+('20190204110830'),
 ('20190215113824'),
 ('20190228115321'),
 ('20190228115345'),
@@ -8969,8 +9129,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190301173808'),
 ('20190301173824'),
 ('20190308163938'),
-('20190318161140');
+('20190318161140'),
 ('20190320122547'),
 ('20190320172713'),
 ('20190321122822');
+
 
