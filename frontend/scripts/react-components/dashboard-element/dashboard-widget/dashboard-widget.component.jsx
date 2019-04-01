@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'react-components/chart';
+import Button from 'react-components/shared/button';
 import Spinner from 'react-components/shared/shrinking-spinner/shrinking-spinner.component';
 import DashboardWidgetLabel from 'react-components/dashboard-element/dashboard-widget/dashboard-widget-label.component';
 import DashboardWidgetLegend from 'react-components/dashboard-element/dashboard-widget/dashboard-widget-legend/dashboard-widget-legend.component';
@@ -69,9 +70,7 @@ function DashboardWidget(props) {
           {title}
         </Heading>
         <div className="widget-actions">
-          <button type="button" />
-          <button type="button" />
-          <button type="button" />
+          <Button icon="icon-table" color="charcoal" variant="circle" />
         </div>
       </div>
       <div className="widget-box">
